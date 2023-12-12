@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer-core";
-import chromium from "@sparticuz/chromium";
+import chromium from "@sparticuz/chromium-min";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
@@ -10,9 +10,11 @@ export async function GET(request: Request) {
   chromium.setGraphicsMode = false;
 
   const browser = await puppeteer.launch({
-    args: chromium.args,
+    args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
+    executablePath: await chromium.executablePath(
+      `https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`
+    ),
     headless: chromium.headless,
   });
 
