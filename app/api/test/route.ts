@@ -10,6 +10,8 @@ export async function GET(request: Request) {
   //chromium.setGraphicsMode = false;
 
   const browser = await puppeteer.launch({
+    args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+    defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath(
       `https://github.com/Sparticuz/chromium/releases/download/v119.0.0/chromium-v119.0.0-pack.tar`
     ),
